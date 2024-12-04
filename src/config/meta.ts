@@ -3,7 +3,7 @@ import { Metadata, Viewport } from "next";
 export const metaData: Metadata = {
   authors: [{ name: "Vahe Manukyan", url: "https://whoiskenshi.t.me" }],
   title: "Nimbus — облачное хранилище для ваших файлов",
-  icons: "/logo.svg",
+  icons: "/icons/logo.svg",
   description:
     "Nimbus — удобное, надежное и быстрое облачное хранилище для ваших файлов.",
   openGraph: {
@@ -12,7 +12,7 @@ export const metaData: Metadata = {
     description:
       "Nimbus — ваше безопасное облачное пространство для хранения данных. Загружайте, синхронизируйте и управляйте файлами легко и быстро.",
     url: "https://nimbus.app",
-    images: "/nimbus-logo.svg",
+    images: "/icons/logo.svg",
     type: "website",
   },
   robots: {

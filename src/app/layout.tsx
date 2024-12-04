@@ -1,4 +1,4 @@
-import "@/app/assets/styles/globals.css";
+import "@/assets/styles/globals.css";
 import { inter, unbounded } from "@/config/fonts";
 
 import { metaData, viewPort } from "@/config/meta";
