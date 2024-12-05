@@ -1,9 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,13 +11,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createAccount } from "@/lib/actions/user.actions";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-});
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import OTPModal from "./OTPModal";
 
 type FormType = "sign_in" | "sign_up";
 
@@ -58,12 +54,17 @@ export default function AuthForm({ type }: { type: FormType }) {
         fullName: values.fullName || "",
         email: values.email,
       });
+
       setAccountId(user.accountId);
     } catch (error) {
+      console.error(error);
+
       setErrorMessage(
         "Не удалось создать аккаунт. Пожалуйста, попробуйте ещё раз",
       );
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -154,7 +155,9 @@ export default function AuthForm({ type }: { type: FormType }) {
         </form>
       </Form>
 
-      {/* Верификация с OTP */}
+      {accountId && (
+        <OTPModal email={form.getValues("email")} accountId={accountId} />
+      )}
     </>
   );
 }
