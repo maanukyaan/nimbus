@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createAccount } from "@/lib/actions/user.actions";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -37,6 +38,7 @@ const authFormSchema = (formType: FormType) => {
 export default function AuthForm({ type }: { type: FormType }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [accountId, setAccountId] = useState<string | null>(null);
 
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,15 +50,28 @@ export default function AuthForm({ type }: { type: FormType }) {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    setIsLoading(true);
+    setErrorMessage("");
+
+    try {
+      const user = await createAccount({
+        fullName: values.fullName || "",
+        email: values.email,
+      });
+      setAccountId(user.accountId);
+    } catch (error) {
+      setErrorMessage(
+        "Не удалось создать аккаунт. Пожалуйста, попробуйте ещё раз",
+      );
+    }
   };
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="auth-form">
-          <h3 className="form-title">
-            {type === "sign_in" ? "Войти в аккаунт" : "Регистрация"}
+          <h3 className="form-title font-unbounded">
+            {type === "sign_in" ? "Вход в аккаунт" : "Регистрация"}
           </h3>
 
           {type !== "sign_in" && (
