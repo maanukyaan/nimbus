@@ -45,6 +45,51 @@ export default function AuthForm({ type }: { type: FormType }) {
     },
   });
 
+  z.setErrorMap((issue, ctx) => {
+    const errorMessages = {
+      invalid_type: "Неверный тип. Ожидалось: {expected}, получено: {received}",
+      too_small: "Длина значения должна быть больше или равна {minimum}",
+      too_big: "Длина значения должна быть меньше или равна {maximum}",
+      invalid_string: "Неверное значение {validation}",
+      invalid_date: "Неверная дата",
+      custom: ctx.defaultError,
+    };
+
+    switch (issue.code) {
+      case "invalid_type":
+        return {
+          message: errorMessages.invalid_type
+            .replace("{expected}", issue.expected || "unknown")
+            .replace("{received}", issue.received || "unknown"),
+        };
+      case "too_small":
+        return {
+          message: errorMessages.too_small.replace(
+            "{minimum}",
+            String(issue.minimum),
+          ),
+        };
+      case "too_big":
+        return {
+          message: errorMessages.too_big.replace(
+            "{maximum}",
+            String(issue.maximum),
+          ),
+        };
+      case "invalid_string":
+        return {
+          message: errorMessages.invalid_string.replace(
+            "{validation}",
+            String(issue.validation || "некорректный формат"),
+          ),
+        };
+      case "invalid_date":
+        return { message: errorMessages.invalid_date };
+      default:
+        return { message: ctx.defaultError };
+    }
+  });
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     setErrorMessage("");

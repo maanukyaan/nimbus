@@ -1,8 +1,9 @@
 "use server"; // !!!!!!!!!
 
+import { avatarPlaceholderUrl } from "@/constants/avatarPlaceholder";
 import { cookies } from "next/headers";
 import { ID, Query } from "node-appwrite";
-import { createAdminClient } from "../appwrite";
+import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
 import { parseStringify } from "../utils";
 
@@ -59,7 +60,7 @@ export const createAccount = async ({
       {
         fullName,
         email,
-        avatar: `https://avatar.iran.liara.run/username?username=${fullName}`,
+        avatar: avatarPlaceholderUrl,
         accountId,
       },
     );
@@ -91,4 +92,20 @@ export const verifySecret = async ({
   } catch (error) {
     handleError(error, "Failed to verify an OTP");
   }
+};
+
+export const getCurrentUser = async () => {
+  const { databases, account } = await createSessionClient();
+
+  const result = await account.get();
+
+  const user = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.usersCollectionId,
+    [Query.equal("accountId", result.$id)],
+  );
+
+  if (user.total <= 0) return null;
+
+  return parseStringify(user.documents[0]);
 };

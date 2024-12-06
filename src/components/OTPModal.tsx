@@ -31,6 +31,7 @@ export default function OTPModal({
   const [isOpen, setIsOpen] = useState(true);
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const OTPInputLength = 6;
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -71,14 +72,19 @@ export default function OTPModal({
             <span className="text-brand">{email}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <InputOTP maxLength={6} value={password} onChange={setPassword}>
+        <InputOTP
+          maxLength={OTPInputLength}
+          value={password}
+          onChange={setPassword}
+        >
           <InputOTPGroup className="shad-otp">
-            <InputOTPSlot index={0} className="shad-otp-slot" />
-            <InputOTPSlot index={1} className="shad-otp-slot" />
-            <InputOTPSlot index={2} className="shad-otp-slot" />
-            <InputOTPSlot index={3} className="shad-otp-slot" />
-            <InputOTPSlot index={4} className="shad-otp-slot" />
-            <InputOTPSlot index={5} className="shad-otp-slot" />
+            {Array.from({ length: OTPInputLength }).map((_, index) => (
+              <InputOTPSlot
+                key={index}
+                index={index}
+                className="shad-otp-slot"
+              />
+            ))}
           </InputOTPGroup>
         </InputOTP>
 
