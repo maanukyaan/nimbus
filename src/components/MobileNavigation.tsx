@@ -8,6 +8,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { navItems } from "@/constants/navItems";
+import { signOutUser } from "@/lib/actions/user.actions";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -106,9 +107,8 @@ export default function MobileNavigation({
             <FileUploader />
 
             <Button
-              type="submit"
               className="mobile-sign-out-button"
-              onClick={() => {}}
+              onClick={async () => await signOutUser()}
             >
               <Image
                 src="/icons/logout.svg"

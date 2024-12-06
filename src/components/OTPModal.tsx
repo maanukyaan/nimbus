@@ -45,6 +45,8 @@ export default function OTPModal({
       }
     } catch (error) {
       console.error("Failed to verify OTP:", error);
+
+      // TODO: Implement error handling on the client. Right now it's Next.js error boundary
     }
   };
 
