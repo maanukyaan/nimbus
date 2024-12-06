@@ -14,6 +14,7 @@ interface ISidebarProps {
 
 export default function Sidebar({ fullName, email, avatar }: ISidebarProps) {
   const pathname = usePathname();
+
   return (
     <aside className="sidebar">
       <Link href="/">

@@ -9,20 +9,22 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentUser = await getCurrentUser();
+  try {
+    const currentUser = await getCurrentUser();
 
-  if (!currentUser) return redirect("/sign_in");
+    return (
+      <main className="flex h-screen">
+        <Sidebar {...currentUser} />
 
-  return (
-    <main className="flex h-screen">
-      <Sidebar {...currentUser} />
+        <section className="flex h-full flex-1 flex-col">
+          <MobileNavigation {...currentUser} />
+          <Header />
 
-      <section className="flex h-full flex-1 flex-col">
-        <MobileNavigation />
-        <Header />
-
-        <div className="main-content">{children}</div>
-      </section>
-    </main>
-  );
+          <div className="main-content">{children}</div>
+        </section>
+      </main>
+    );
+  } catch (error) {
+    return redirect("/sign_in");
+  }
 }

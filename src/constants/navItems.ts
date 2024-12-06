@@ -1,26 +1,26 @@
 export const navItems = [
   {
-    name: "Dashboard",
+    name: "Главная",
     icon: "/icons/dashboard.svg",
     url: "/",
   },
   {
-    name: "Documents",
+    name: "Документы",
     icon: "/icons/documents.svg",
     url: "/documents",
   },
   {
-    name: "Images",
+    name: "Изображения",
     icon: "/icons/images.svg",
     url: "/images",
   },
   {
-    name: "Media",
+    name: "Медиа",
     icon: "/icons/video.svg",
     url: "/media",
   },
   {
-    name: "Others",
+    name: "Другое",
     icon: "/icons/others.svg",
     url: "/others",
   },

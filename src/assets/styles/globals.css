@@ -340,7 +340,7 @@
 
   /* Mobile Navigation */
   .mobile-header {
-    @apply flex h-[60px] justify-between px-5 sm:hidden !important;
+    @apply flex h-[60px] items-center justify-between px-5 sm:hidden !important;
   }
   .header-user {
     @apply my-3 flex items-center gap-2 rounded-full p-1 text-light-100 sm:justify-center sm:bg-brand/10 lg:justify-start lg:p-3 !important;
