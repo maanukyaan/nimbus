@@ -68,7 +68,7 @@ export default function OTPModal({
             />
           </AlertDialogTitle>
           <AlertDialogDescription className="subtitle-2 text-center text-light-100">
-            Мы отправили одноразовый код на вашу{" "}
+            Мы отправили одноразовый код на вашу почту{" "}
             <span className="text-brand">{email}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>

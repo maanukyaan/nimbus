@@ -22,7 +22,7 @@ export default function Sidebar({ fullName, email, avatar }: ISidebarProps) {
           src="/icons/logo-long.svg"
           alt="Logo"
           width={512}
-          height={90}
+          height={188}
           className="hidden h-auto lg:block"
           quality={100}
         />

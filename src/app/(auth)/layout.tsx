@@ -7,24 +7,23 @@ export default function AuthLayout({
 }>) {
   return (
     <div className="flex min-h-screen">
-      <section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">
+      <section className="hidden w-1/2 items-center justify-center bg-brand-200 p-10 lg:flex xl:w-2/5">
         <div className="flex max-h-[800px] max-w-[430px] flex-col justify-center space-y-12">
           <Image
             src="/icons/logo.svg"
-            width={256}
-            height={332}
-            className="size-16"
+            width={64}
+            height={64}
             quality={100}
             priority
             alt="Logo"
           />
 
-          <div className="space-y-5 text-white">
+          <div className="space-y-7 text-white">
             <h1 className="h1 font-unbounded">
               Удобное хранилище для ваших файлов
             </h1>
             <h2 className="body-1">
-              Nimbus — Ваше безопасное облачное пространство для хранения
+              <b>Nimbus</b> — Ваше безопасное облачное пространство для хранения
               данных. Загружайте, синхронизируйте и управляйте файлами легко и
               быстро.
             </h2>
@@ -48,7 +47,7 @@ export default function AuthLayout({
             src="/icons/logo-long.svg"
             alt="Logo"
             width={512}
-            height={90}
+            height={188}
             className="h-auto w-52 lg:w-[250px]"
             quality={100}
           />
