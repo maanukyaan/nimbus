@@ -87,7 +87,6 @@ export const getFiles = async () => {
       appwriteConfig.filesCollectionId,
       queries,
     );
-    console.log({ currentUser, queries, files });
     return parseStringify(files);
   } catch (error) {
     handleError(error, "Failed to get files");

@@ -1,6 +1,8 @@
+import Card from "@/components/Card";
 import Sort from "@/components/Sort";
 import { getTypeTranslation } from "@/config/translations";
 import { getFiles } from "@/lib/actions/file.action";
+import { convertFileSize } from "@/lib/utils";
 import { Models } from "node-appwrite";
 
 export default async function page({ params }: SearchParamProps) {
@@ -8,6 +10,10 @@ export default async function page({ params }: SearchParamProps) {
   const translatedType = getTypeTranslation(type);
 
   const files = await getFiles();
+  const totalSize = files.documents.reduce(
+    (acc: number, file: Models.Document) => acc + file.size,
+    0,
+  );
 
   return (
     <div className="page-container">
@@ -16,7 +22,8 @@ export default async function page({ params }: SearchParamProps) {
 
         <div className="total-size-section">
           <p className="body-1">
-            Занимаемое место: <span className="h5">12 МБ</span>
+            Занимаемое место:{" "}
+            <span className="h5">{convertFileSize(totalSize)}</span>
           </p>
 
           <div className="sort-container">
@@ -32,9 +39,7 @@ export default async function page({ params }: SearchParamProps) {
       {files.total > 0 ? (
         <section className="file-list">
           {files.documents.map((file: Models.Document) => (
-            <p className="h1" key={file.$id}>
-              {file.name}
-            </p>
+            <Card key={file.$id} file={file} />
           ))}
         </section>
       ) : (
