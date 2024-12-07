@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { ID, Query } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { appwriteConfig } from "../appwrite/config";
-import { parseStringify } from "../utils";
+import { handleError, parseStringify } from "../utils";
 
 const getUserByEmail = async (email: string) => {
   const { databases } = await createAdminClient();
@@ -18,11 +18,6 @@ const getUserByEmail = async (email: string) => {
   );
 
   return result.total > 0 ? result.documents[0] : null;
-};
-
-const handleError = (error: unknown, message: string) => {
-  console.log(error, message);
-  throw error;
 };
 
 export const sendEmailOTP = async ({ email }: { email: string }) => {

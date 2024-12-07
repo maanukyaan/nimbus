@@ -19,7 +19,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 
 interface IMobileNavigationProps {
-  ownerId: string;
+  $id: string;
   accountId: string;
   fullName: string;
   avatar: string;
@@ -27,7 +27,7 @@ interface IMobileNavigationProps {
 }
 
 export default function MobileNavigation({
-  ownerId,
+  $id: ownerId,
   accountId,
   fullName,
   avatar,
@@ -104,7 +104,7 @@ export default function MobileNavigation({
           <Separator className="my-4 bg-light-200/20" />
 
           <div className="flex flex-col justify-between gap-5 pb-5">
-            <FileUploader />
+            <FileUploader ownerId={ownerId} accountId={accountId} />
 
             <Button
               className="mobile-sign-out-button"
