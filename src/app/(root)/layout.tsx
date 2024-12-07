@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Header from "@/components/Header";
 import MobileNavigation from "@/components/MobileNavigation";
 import Sidebar from "@/components/Sidebar";
@@ -10,7 +12,6 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ! On production, after successful registration/authentication, it redirects you not to the dashboard, but again to the login, although the session is saved in cookies. Find out why. Most likely, this is done by catch block
   try {
     const currentUser = await getCurrentUser();
 
@@ -31,7 +32,6 @@ export default async function Layout({
       </main>
     );
   } catch (error) {
-    console.error(error);
     return redirect("/sign_up");
   }
 }
