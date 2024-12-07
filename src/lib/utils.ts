@@ -26,10 +26,7 @@ const getTypeFromExtension = (extension: string): string => {
   return "other";
 };
 
-export const getFileIcon = (
-  extension: string | undefined,
-  type: "document" | "image" | "video" | "audio" | "other" | string | undefined,
-) => {
+export const getFileIcon = (extension: string | undefined, type: FileType) => {
   if (!extension) {
     return defaultTypeIcons[type || "other"];
   }
