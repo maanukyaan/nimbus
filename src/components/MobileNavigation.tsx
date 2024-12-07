@@ -42,7 +42,7 @@ export default function MobileNavigation({
         src="/icons/logo-long.svg"
         alt="Logo"
         width={512}
-        height={188}
+        height={110}
         className="h-7 w-auto"
         quality={100}
       />

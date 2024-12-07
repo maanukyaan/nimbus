@@ -32,6 +32,7 @@ export default async function Layout({
       </main>
     );
   } catch (error) {
+    console.error(error);
     return redirect("/sign_up");
   }
 }

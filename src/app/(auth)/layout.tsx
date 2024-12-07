@@ -7,7 +7,7 @@ export default function AuthLayout({
 }>) {
   return (
     <div className="flex min-h-screen">
-      <section className="hidden w-1/2 items-center justify-center bg-brand-200 p-10 lg:flex xl:w-2/5">
+      <section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">
         <div className="flex max-h-[800px] max-w-[430px] flex-col justify-center space-y-12">
           <Image
             src="/icons/logo.svg"
@@ -16,6 +16,7 @@ export default function AuthLayout({
             quality={100}
             priority
             alt="Logo"
+            className="brightness-0 invert filter"
           />
 
           <div className="space-y-7 text-white">
@@ -47,7 +48,7 @@ export default function AuthLayout({
             src="/icons/logo-long.svg"
             alt="Logo"
             width={512}
-            height={188}
+            height={110}
             className="h-auto w-52 lg:w-[250px]"
             quality={100}
           />

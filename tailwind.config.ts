@@ -15,10 +15,8 @@ export default {
       },
       colors: {
         brand: {
-          "100": "#7CB4FC",
-          "200": "#66ABFC",
-          "900": "#066DFC",
-          DEFAULT: "#3890FC",
+          DEFAULT: "#ED6C6F",
+          100: "#EA6365",
         },
         red: "#FF7474",
         error: "#b80000",
