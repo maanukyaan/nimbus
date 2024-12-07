@@ -1,4 +1,5 @@
 import "@/assets/styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
 import { inter, unbounded } from "@/config/fonts";
 
 import { metaData, viewPort } from "@/config/meta";
@@ -15,6 +16,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${unbounded.variable} font-inter antialiased`}
       >
+        <Toaster />
         {children}
       </body>
     </html>

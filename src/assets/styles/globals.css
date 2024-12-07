@@ -171,7 +171,11 @@
 
   /* Root Layout */
   .main-content {
-    @apply remove-scrollbar h-full flex-1 overflow-auto bg-light-400 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10 !important;
+    @apply remove-scrollbar relative h-full flex-1 overflow-auto bg-light-400 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10 !important;
+  }
+
+  .absolute-center {
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform;
   }
 
   /* Dashboard */
@@ -385,7 +389,7 @@
 
   /* Sidebar */
   .sidebar {
-    @apply remove-scrollbar hidden h-screen w-[90px] flex-col overflow-auto px-5 py-7 sm:flex lg:w-[280px] xl:w-[325px] !important;
+    @apply remove-scrollbar hidden h-screen w-[90px] min-w-[90px] flex-col overflow-auto px-5 py-7 sm:flex lg:w-[280px] lg:min-w-[280px] xl:w-[325px] xl:min-w-[325px] !important;
   }
   .sidebar-nav {
     @apply h5 mt-9 flex-1 gap-1 text-brand !important;
