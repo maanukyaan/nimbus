@@ -1,6 +1,5 @@
 "use server"; // !!!!!!!!!
 
-import { avatarPlaceholderUrl } from "@/constants/avatarPlaceholder";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ID, Query } from "node-appwrite";
@@ -56,7 +55,7 @@ export const createAccount = async ({
       {
         fullName,
         email,
-        avatar: avatarPlaceholderUrl,
+        avatar: `https://avatar.iran.liara.run/username?username=${fullName}`,
         accountId,
       },
     );
