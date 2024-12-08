@@ -2,7 +2,7 @@
 
 import { signOutUser } from "@/lib/actions/user.actions";
 import Image from "next/image";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 
 export default function LogoutButton() {
   return (

@@ -1,6 +1,6 @@
 import FileUploader from "./FileUploader";
+import LogoutButton from "./LogoutButton";
 import Search from "./Search";
-import LogoutButton from "./ui/LogoutButton";
 
 export default function Header({
   userId,

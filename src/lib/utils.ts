@@ -56,7 +56,7 @@ export const constructDownloadUrl = (bucketFileId: string) => {
 
 export const convertFileSize = (sizeInBytes: number, digits?: number) => {
   if (sizeInBytes < 1024) {
-    return sizeInBytes + " Байт"; // Less than 1 KB, show in Bytes
+    return sizeInBytes + " байт"; // Less than 1 KB, show in Bytes
   } else if (sizeInBytes < 1024 * 1024) {
     const sizeInKB = sizeInBytes / 1024;
     return sizeInKB.toFixed(digits || 1) + " КБ"; // Less than 1 MB, show in KB
