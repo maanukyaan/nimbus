@@ -16,9 +16,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { actionsDropdownItems } from "@/config/actionDropdownItems";
+import { renameFile } from "@/lib/actions/file.action";
 import { constructDownloadUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Models } from "node-appwrite";
 import { useState } from "react";
 import { Button } from "./ui/button";
@@ -30,6 +32,7 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
   const [action, setAction] = useState<ActionType | null>(null);
   const [fileName, setFileName] = useState(file.name);
   const [isLoading, setIsLoading] = useState(false);
+  const path = usePathname();
 
   const handleDropdownMenuItemClick = (actionItem: ActionType) => {
     setAction(actionItem);
@@ -48,7 +51,31 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
     // setEmails([]);
   };
 
-  const handleAction = async () => {};
+  const handleAction = async () => {
+    if (!action) return null;
+
+    setIsLoading(true);
+    let success = false;
+
+    const actions = {
+      rename: () =>
+        renameFile({
+          fileId: file.$id,
+          name: fileName,
+          extension: file.extension,
+          path,
+        }),
+      share: () => console.log("share"),
+      delete: () => console.log("delete"),
+    };
+
+    success = await actions[action.value as keyof typeof actions]();
+
+    if (success) {
+      closeAll();
+      setIsLoading(false);
+    }
+  };
 
   const renderDialogContent = () => {
     if (!action) return null;
