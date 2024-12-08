@@ -24,12 +24,12 @@ export default function loading() {
           </div>
         </div>
         <div>
-          <Skeleton className="h-[120px] w-full rounded-3xl" />
+          <Skeleton className="//bg-[#ed6c6f1a] h-[142px] w-full rounded-[30px]" />
           <Skeleton className="mt-4 h-[64px] w-full rounded-full" />
         </div>
       </aside>
 
-      <section className="flex h-full flex-1 flex-col pr-5">
+      <section className="flex h-full flex-1 flex-col pb-[28px] pr-[28px]">
         <div className="h-[108px] w-full py-7">
           <div className="flex h-full w-full items-center justify-between">
             <Skeleton className="h-full w-[300px] rounded-3xl" />
