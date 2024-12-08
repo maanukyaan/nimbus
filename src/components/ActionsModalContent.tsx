@@ -37,10 +37,12 @@ export const FileDetails = ({ file }: { file: Models.Document }) => {
           label="Дата создания"
           value={formatDateTime(file.$createdAt)}
         />
-        <DetailRow
-          label="Дата изменения"
-          value={formatDateTime(file.$updatedAt)}
-        />
+        {file.$updatedAt !== file.$createdAt && (
+          <DetailRow
+            label="Дата изменения"
+            value={formatDateTime(file.$updatedAt)}
+          />
+        )}
       </div>
     </>
   );
