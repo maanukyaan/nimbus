@@ -1,6 +1,12 @@
 "use client";
 
-import { Dialog } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,11 +21,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Models } from "node-appwrite";
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function ActionDropdown({ file }: { file: Models.Document }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [action, setAction] = useState<ActionType | null>(null);
+  const [fileName, setFileName] = useState(file.name);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDropdownMenuItemClick = (actionItem: ActionType) => {
     setAction(actionItem);
@@ -27,6 +37,60 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
     if (["rename", "share", "delete", "details"].includes(actionItem.value)) {
       setIsModalOpen(true);
     }
+  };
+
+  const closeAll = () => {
+    setIsModalOpen(false);
+    setIsDropdownOpen(false);
+    setFileName(file.name);
+    setAction(null);
+    setIsLoading(false);
+    // setEmails([]);
+  };
+
+  const handleAction = async () => {};
+
+  const renderDialogContent = () => {
+    if (!action) return null;
+
+    const { value, label } = action;
+
+    return (
+      <DialogContent className="shad-dialog button">
+        <DialogHeader className="flex flex-col gap-3">
+          <DialogTitle className="text-center text-light-100">
+            {label}
+          </DialogTitle>
+
+          {value === "rename" && (
+            <Input
+              type="text"
+              value={fileName}
+              onChange={(e) => setFileName(e.target.value)}
+            />
+          )}
+        </DialogHeader>
+        {["rename", "delete", "share"].includes(value) && (
+          <DialogFooter className="flex flex-col gap-3 md:flex-row">
+            <Button onClick={closeAll} className="modal-cancel-button">
+              Отменить
+            </Button>
+            <Button onClick={handleAction} className="modal-submit-button">
+              <p className="capitalize">{label}</p>
+              {isLoading && (
+                <Image
+                  src="/icons/loader.svg"
+                  alt="Loader"
+                  width={15}
+                  height={15}
+                  className="animate-spin"
+                />
+              )}
+            </Button>
+          </DialogFooter>
+        )}
+      </DialogContent>
+    );
   };
 
   return (
@@ -75,6 +139,8 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
+
+      {isModalOpen && renderDialogContent()}
     </Dialog>
   );
 }
