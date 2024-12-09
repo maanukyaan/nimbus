@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { actionsDropdownItems } from "@/config/actionDropdownItems";
-import { renameFile } from "@/lib/actions/file.action";
+import { deleteFile, renameFile } from "@/lib/actions/file.action";
 import { constructDownloadUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,7 +67,8 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
           path,
         }),
       share: () => console.log("share"),
-      delete: () => console.log("delete"),
+      delete: () =>
+        deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path }),
     };
 
     success = await actions[action.value as keyof typeof actions]();
@@ -99,6 +100,13 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
           )}
 
           {value === "details" && <FileDetails file={file} />}
+
+          {value === "delete" && (
+            <p className="delete-confirmation">
+              Вы уверены, что хотите удалить файл{" "}
+              <span className="delete-file-name">{file.name}</span>?
+            </p>
+          )}
         </DialogHeader>
         {["rename", "delete", "share"].includes(value) && (
           <DialogFooter className="flex flex-col gap-3 md:flex-row">

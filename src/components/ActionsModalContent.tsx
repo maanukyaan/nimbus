@@ -24,7 +24,7 @@ const DetailRow = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-export const FileDetails = ({ file }: { file: Models.Document }) => {
+export function FileDetails({ file }: { file: Models.Document }) {
   return (
     <>
       <ImageThumbnail file={file} />
@@ -46,4 +46,4 @@ export const FileDetails = ({ file }: { file: Models.Document }) => {
       </div>
     </>
   );
-};
+}
