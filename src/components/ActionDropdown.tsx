@@ -16,14 +16,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { actionsDropdownItems } from "@/config/actionDropdownItems";
-import { deleteFile, renameFile } from "@/lib/actions/file.action";
+import {
+  deleteFile,
+  renameFile,
+  updateFileUsers,
+} from "@/lib/actions/file.action";
 import { constructDownloadUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Models } from "node-appwrite";
 import { useState } from "react";
-import { FileDetails } from "./ActionsModalContent";
+import { FileDetails, ShareInput } from "./ActionsModalContent";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -33,6 +37,7 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
   const [action, setAction] = useState<ActionType | null>(null);
   const [fileName, setFileName] = useState(file.name);
   const [isLoading, setIsLoading] = useState(false);
+  const [emails, setEmails] = useState<string[]>([]);
   const path = usePathname();
 
   const handleDropdownMenuItemClick = (actionItem: ActionType) => {
@@ -66,7 +71,7 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
           extension: file.extension,
           path,
         }),
-      share: () => console.log("share"),
+      share: () => updateFileUsers({ fileId: file.$id, emails, path }),
       delete: () =>
         deleteFile({ fileId: file.$id, bucketFileId: file.bucketFileId, path }),
     };
@@ -76,6 +81,19 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
     if (success) {
       closeAll();
       setIsLoading(false);
+    }
+  };
+
+  const handleRemoveUser = async (email: string) => {
+    const updatedEmails = emails.filter((e) => e !== email);
+    const success = await updateFileUsers({
+      fileId: file.$id,
+      emails: updatedEmails,
+      path,
+    });
+    if (success) {
+      setEmails(updatedEmails);
+      closeAll();
     }
   };
 
@@ -106,6 +124,14 @@ export default function ActionDropdown({ file }: { file: Models.Document }) {
               Вы уверены, что хотите удалить файл{" "}
               <span className="delete-file-name">{file.name}</span>?
             </p>
+          )}
+
+          {value === "share" && (
+            <ShareInput
+              file={file}
+              onInputChange={setEmails}
+              onRemove={handleRemoveUser}
+            />
           )}
         </DialogHeader>
         {["rename", "delete", "share"].includes(value) && (
