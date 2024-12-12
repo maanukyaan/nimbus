@@ -98,3 +98,18 @@ export const formatDateTime = (isoString: string | null | undefined) => {
 
   return `${time}, ${day} ${month}`;
 };
+
+export const getFileTypesParams = (type: string) => {
+  switch (type) {
+    case "documents":
+      return ["document"];
+    case "images":
+      return ["image"];
+    case "media":
+      return ["video", "audio"];
+    case "others":
+      return ["other"];
+    default:
+      return ["document"];
+  }
+};

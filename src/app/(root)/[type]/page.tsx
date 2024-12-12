@@ -2,14 +2,14 @@ import Card from "@/components/Card";
 import Sort from "@/components/Sort";
 import { getTypeTranslation } from "@/config/translations";
 import { getFiles } from "@/lib/actions/file.action";
-import { convertFileSize } from "@/lib/utils";
+import { convertFileSize, getFileTypesParams } from "@/lib/utils";
 import { Models } from "node-appwrite";
 
 export default async function page({ params }: SearchParamProps) {
   const type = ((await params)?.type as string) || "";
   const translatedType = getTypeTranslation(type);
 
-  const files = await getFiles();
+  const files = await getFiles({ types: getFileTypesParams(type) });
   const totalSize = files.documents.reduce(
     (acc: number, file: Models.Document) => acc + file.size,
     0,
