@@ -2,10 +2,11 @@
 
 import { getFiles } from "@/lib/actions/file.action";
 import Image from "next/image";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Models } from "node-appwrite";
 import { useEffect, useState } from "react";
+import FormattedDateTime from "./FormattedDateTime";
+import Thumbnail from "./Thumbnail";
 import { Input } from "./ui/input";
 
 export default function Search() {
@@ -14,9 +15,16 @@ export default function Search() {
   const searchQuery = searchParams.get("query") || "";
   const [results, setResults] = useState<Models.Document[]>([]);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const path = usePathname();
 
   useEffect(() => {
     const fetchFiles = async () => {
+      if (!query) {
+        setResults([]);
+        setOpen(false);
+        return router.push(path.replace(searchParams.toString(), ""));
+      }
       const files = await getFiles({ query });
       setResults(files.documents);
       setOpen(true);
@@ -29,6 +37,14 @@ export default function Search() {
       setQuery("");
     }
   }, [searchQuery]);
+
+  const hanldeClickItem = (file: Models.Document) => {
+    setOpen(false);
+    setResults([]);
+    router.push(
+      `${file.type === "video" || file.type === "audio" ? "media" : file.type + "s"}?query=${query}`,
+    );
+  };
 
   return (
     <div className="search">
@@ -46,8 +62,26 @@ export default function Search() {
           <ul className="search-result">
             {results.length > 0 ? (
               results.map((file) => (
-                <li key={file.$id}>
-                  <Link href={`/files/${file.id}`}>{file.name}</Link>
+                <li
+                  key={file.$id}
+                  className="flex items-center justify-between"
+                  onClick={() => hanldeClickItem(file)}
+                >
+                  <div className="flex cursor-pointer items-center gap-4">
+                    <Thumbnail
+                      type={file.type}
+                      extension={file.extension}
+                      url={file.url}
+                      className="size-9 min-w-9"
+                    />
+                    <p className="subtitle-2 line-clamp-1 max-w-[150px] text-light-100 lg:max-w-[200px]">
+                      {file.name}
+                    </p>
+                  </div>
+                  <FormattedDateTime
+                    date={file.$createdAt}
+                    className="caption line-clamp-1 text-light-200"
+                  />
                 </li>
               ))
             ) : (
