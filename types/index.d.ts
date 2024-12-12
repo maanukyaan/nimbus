@@ -47,7 +47,7 @@ declare interface UpdateFileUsersProps {
 
 declare interface GetFilesProps {
   types: FileType[];
-  searchText?: string;
+  query?: string;
   sort?: string;
   limit?: number;
 }
