@@ -30,26 +30,28 @@ export default async function page({ searchParams, params }: SearchParamProps) {
           {getTypeTranslation(type)}
         </h1>
 
-        <div className="total-size-section">
-          <p className="body-1">
-            Занимаемое место:{" "}
-            <span className="h5">{convertFileSize(totalSize)}</span>
-          </p>
-
-          <div className="sort-container">
-            <p className="body-1 hidden text-light-200 sm:block">
-              Сортировать по:
+        {files.documents.length > 0 && (
+          <div className="total-size-section">
+            <p className="body-1">
+              Занимаемое место:{" "}
+              <span className="h5">{convertFileSize(totalSize)}</span>
             </p>
-            <Sort />
+
+            <div className="sort-container">
+              <p className="body-1 hidden text-light-200 sm:block">
+                Сортировать по:
+              </p>
+              <Sort />
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* Files rendering */}
       {files.total > 0 ? (
         <section className="file-list">
           {files.documents.map((file: Models.Document) => (
-            <Card key={file.$id} file={file} />
+          <Card key={file.$id} file={file} />
           ))}
         </section>
       ) : (

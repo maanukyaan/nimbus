@@ -210,7 +210,7 @@
     @apply body-2 text-light-100/80 !important;
   }
   .empty-list {
-    @apply body-1 mt-10 text-center text-light-200 !important;
+    @apply h3 mt-10 text-center font-unbounded text-light-200 !important;
   }
 
   /* Type page */
