@@ -59,13 +59,13 @@ export const convertFileSize = (sizeInBytes: number, digits?: number) => {
     return sizeInBytes + " байт"; // Less than 1 KB, show in Bytes
   } else if (sizeInBytes < 1024 * 1024) {
     const sizeInKB = sizeInBytes / 1024;
-    return sizeInKB.toFixed(digits || 1) + " КБ"; // Less than 1 MB, show in KB
+    return sizeInKB.toFixed(digits || 1) + "КБ"; // Less than 1 MB, show in KB
   } else if (sizeInBytes < 1024 * 1024 * 1024) {
     const sizeInMB = sizeInBytes / (1024 * 1024);
-    return sizeInMB.toFixed(digits || 1) + " МБ"; // Less than 1 GB, show in MB
+    return sizeInMB.toFixed(digits || 1) + "МБ"; // Less than 1 GB, show in MB
   } else {
     const sizeInGB = sizeInBytes / (1024 * 1024 * 1024);
-    return sizeInGB.toFixed(digits || 2) + " ГБ"; // 1 GB or more, show in GB
+    return sizeInGB.toFixed(digits || 2) + "ГБ"; // 1 GB or more, show in GB
   }
 };
 
@@ -112,4 +112,54 @@ export const getFileTypesParams = (type: string) => {
     default:
       return ["document"];
   }
+};
+
+interface SpaceUsage {
+  document: { size: number; latestDate: string };
+  image: { size: number; latestDate: string };
+  video: { size: number; latestDate: string };
+  audio: { size: number; latestDate: string };
+  other: { size: number; latestDate: string };
+}
+
+export const getUsageSummary = (totalSpace: SpaceUsage) => {
+  return [
+    {
+      title: "Документы",
+      size: totalSpace.document.size,
+      latestDate: totalSpace.document.latestDate,
+      icon: "/icons/file-document-light.svg",
+      url: "/documents",
+    },
+    {
+      title: "Изображения",
+      size: totalSpace.image.size,
+      latestDate: totalSpace.image.latestDate,
+      icon: "/icons/file-image-light.svg",
+      url: "/images",
+    },
+    {
+      title: "Медиа",
+      size: totalSpace.video.size + totalSpace.audio.size,
+      latestDate:
+        totalSpace.video.latestDate > totalSpace.audio.latestDate
+          ? totalSpace.video.latestDate
+          : totalSpace.audio.latestDate,
+      icon: "/icons/file-video-light.svg",
+      url: "/media",
+    },
+    {
+      title: "Другое",
+      size: totalSpace.other.size,
+      latestDate: totalSpace.other.latestDate,
+      icon: "/icons/file-other-light.svg",
+      url: "/others",
+    },
+  ];
+};
+
+export const calculatePercentage = (sizeInBytes: number) => {
+  const totalSizeInBytes = 2 * 1024 * 1024 * 1024; // 2GB
+  const percentage = (sizeInBytes / totalSizeInBytes) * 100;
+  return Number(percentage.toFixed(2));
 };

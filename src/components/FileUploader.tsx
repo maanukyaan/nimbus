@@ -2,7 +2,7 @@
 
 import { MAX_FILE_SIZE } from "@/constants/MAX_FILE_SIZE";
 import { useToast } from "@/hooks/use-toast";
-import { uploadFile } from "@/lib/actions/file.action";
+import { uploadFile } from "@/lib/actions/file.actions";
 import { cn, convertFileToUrl, getFileType } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";

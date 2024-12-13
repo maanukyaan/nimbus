@@ -20,7 +20,7 @@ import {
   deleteFile,
   renameFile,
   updateFileUsers,
-} from "@/lib/actions/file.action";
+} from "@/lib/actions/file.actions";
 import { constructDownloadUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";

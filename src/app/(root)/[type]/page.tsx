@@ -1,7 +1,7 @@
 import Card from "@/components/Card";
 import Sort from "@/components/Sort";
 import { getTypeTranslation } from "@/config/translations";
-import { getFiles } from "@/lib/actions/file.action";
+import { getFiles } from "@/lib/actions/file.actions";
 import { convertFileSize, getFileTypesParams } from "@/lib/utils";
 import { Models } from "node-appwrite";
 
@@ -51,7 +51,7 @@ export default async function page({ searchParams, params }: SearchParamProps) {
       {files.total > 0 ? (
         <section className="file-list">
           {files.documents.map((file: Models.Document) => (
-          <Card key={file.$id} file={file} />
+            <Card key={file.$id} file={file} />
           ))}
         </section>
       ) : (

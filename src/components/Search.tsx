@@ -1,6 +1,6 @@
 "use client";
 
-import { getFiles } from "@/lib/actions/file.action";
+import { getFiles } from "@/lib/actions/file.actions";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Models } from "node-appwrite";

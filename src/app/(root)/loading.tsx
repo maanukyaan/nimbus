@@ -2,18 +2,28 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function loading() {
   return (
-    <div>
-      <Skeleton className="mt-2 h-[35px] w-[300px] rounded-full" />
-      <div className="mt-3 flex w-full items-center justify-between">
-        <Skeleton className="h-[23px] w-[230px] rounded-full" />
-        <Skeleton className="h-[42px] w-[350px] rounded-full" />
-      </div>
+    <div className="dashboard-container">
+      <section>
+        <Skeleton className="h-[218px] w-full rounded-[18px]" />
 
-      <div className="mt-8 flex w-full flex-col gap-6 lg:flex-row">
-        <Skeleton className="h-[216px] w-full rounded-[18px] lg:w-[300px]" />
-        <Skeleton className="h-[216px] w-full rounded-[18px] lg:w-[300px]" />
-        <Skeleton className="h-[216px] w-full rounded-[18px] lg:w-[300px]" />
-      </div>
+        <ul className="dashboard-summary-list !pt-5">
+          {[1, 2, 3, 4].map((i) => (
+            <li key={i}>
+              <Skeleton className="h-[157px] w-full rounded-[20px]" />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="dashboard-recent-files">
+        <Skeleton className="h-8 w-[500px] rounded-full" />
+
+        <ul className="mt-5 flex flex-col gap-5">
+          {[1, 2, 3, 4].map((i) => (
+            <Skeleton key={i} className="h-[52px] w-full rounded-[12px]" />
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }

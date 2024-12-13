@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 
 declare type FileType =
-  | "document"
   | "image"
+  | "document"
   | "video"
   | "audio"
   | "other"
